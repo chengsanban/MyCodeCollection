@@ -1,0 +1,43 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    text-align: center;
+}
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+table,tr,td{
+    border: 6px solid skyblue;
+    border-radius: 10px;
+}
+
+/*modify delete button*/
+.MDButton{
+    width : 30px;
+    height: 20px;
+    border-radius: 10px;
+    color: red;
+    background-color: skyblue;
+    outline: none;
+}
+
+.addButton{
+    width : 100px;
+    height: 60px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    color: red;
+    background-color: skyblue;
+    outline: none;
+    margin: 0 auto;
+    display: block;
+}

@@ -1,0 +1,30 @@
+{
+    "name" : "zhangsan",
+    "age" : 23,
+    "password" : "11111111111",
+    "email" : "zhangsan@qq.com",
+    "courses" : [
+        "js",
+        "vue"
+    ]
+}
+{
+    "name" : "lisi",
+    "age" : 99,
+    "password" : "222222222222",
+    "email" : "lisi@qq.com",
+    "courses" : [
+        "c++",
+        "vue"
+    ]
+}
+{
+    "name" : "wangwu",
+    "age" : 55,
+    "password" : "333333333",
+    "email" : "wangwu@qq.com",
+    "courses" : [
+        "js",
+        "python"
+    ]
+}
