@@ -1,0 +1,70 @@
+root
+|---ftyp(codecID:mp42/version:0/ohter:mp42isomavc1)
+|---free
+|---mdat
+|---moov
+|   |---mvhd(Ctime:3460085500/Mtime:3460085686/scale:90000/duration:2578560/rate:1.0/volume:1.0/nextTrackID:4)
+|   |---iods
+|   |---trak
+|   |   |---tkhd(Ctime:3460085500/Mtime:3460085686/track_id:1/duration:2576250/layer:0/alternate_group:0/volume:0.0/width:1920.0/height:1080.0)
+|   |   |---mdia
+|   |   |   |---mdhd(Ctime:3460085500/Mtime:3460085686/scale:90000/duration:2576250/language:und)
+|   |   |   |---hdlr(media type:vide)
+|   |   |   `---minf
+|   |   |       |---vmhd(graphics_mode:0/r:0/g:0/b:0)
+|   |   |       |---dinf
+|   |   |       |   `---dref
+|   |   |       |       `---url 
+|   |   |       `---stbl
+|   |   |           |---stsd
+|   |   |           |   `---avc1
+|   |   |           |---stts
+|   |   |           |---stsz
+|   |   |           |---stsc
+|   |   |           |---co64
+|   |   |           |---ctts
+|   |   |           |---stss
+|   |   |           `---sdtp
+|   |   `---edts
+|   |       `---elst
+|   |---trak
+|   |   |---tkhd(Ctime:3460085500/Mtime:3460085685/track_id:2/duration:2578560/layer:0/alternate_group:1/volume:1.0/width:0.0/height:0.0)
+|   |   |---mdia
+|   |   |   |---mdhd(Ctime:3460085500/Mtime:3460085685/scale:48000/duration:1375232/language:und)
+|   |   |   |---hdlr(media type:soun)
+|   |   |   `---minf
+|   |   |       |---smhd(balance:0.0)
+|   |   |       |---dinf
+|   |   |       |   `---dref
+|   |   |       |       `---url 
+|   |   |       `---stbl
+|   |   |           |---stsd
+|   |   |           |   `---mp4a
+|   |   |           |---stts
+|   |   |           |---stsz
+|   |   |           |---stsc
+|   |   |           `---co64
+|   |   `---udta
+|   |       `---name
+|   |---trak
+|   |   |---tkhd(Ctime:3460085500/Mtime:3460085685/track_id:3/duration:2574720/layer:0/alternate_group:1/volume:1.0/width:0.0/height:0.0)
+|   |   |---mdia
+|   |   |   |---mdhd(Ctime:3460085500/Mtime:3460085685/scale:48000/duration:1373184/language:und)
+|   |   |   |---hdlr(media type:soun)
+|   |   |   `---minf
+|   |   |       |---smhd(balance:0.0)
+|   |   |       |---dinf
+|   |   |       |   `---dref
+|   |   |       |       `---url 
+|   |   |       `---stbl
+|   |   |           |---stsd
+|   |   |           |   `---ac-3
+|   |   |           |---stts
+|   |   |           |---stsz
+|   |   |           |---stsc
+|   |   |           `---co64
+|   |   `---udta
+|   |       `---name
+|   `---udta
+|       `---meta
+`---free
