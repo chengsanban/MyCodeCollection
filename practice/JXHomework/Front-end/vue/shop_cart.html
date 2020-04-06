@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .wrap {
+            width: 300px;
+            margin: auto;
+        }
+        
+        .title {
+            height: 40px;
+            line-height: 40px;
+            background-color: lightblue;
+            text-align: center;
+        }
+        
+        .total {
+            background-color: #ffce46;
+            height: 50px;
+            line-height: 50px;
+            text-align: right;
+        }
+        
+        .total span {
+            color: red;
+            font-weight: 700;
+            font-size: 22px;
+        }
+        
+        .total button {
+            margin: 0 10px;
+            height: 35px;
+            width: 80px;
+            border: 0;
+            background-color: #f40;
+            border-radius: 6px;
+        }
+        
+        .wrap .item {
+            height: 55px;
+            line-height: 55px;
+            position: relative;
+            border-top: 1px solid #add8e6;
+        }
+        
+        .wrap .item img {
+            width: 45px;
+            height: 45px;
+            margin: 5px;
+        }
+        
+        .wrap .item .name {
+            /* width: 90px; */
+            position: absolute;
+            left: 55px;
+            top: 0;
+            font-size: 16px;
+        }
+        
+        .wrap .item .change {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            right: 38px;
+        }
+        
+        .wrap .item .change a {
+            text-decoration: none;
+            vertical-align: middle;
+            font-size: 20px;
+            width: 30px;
+            background-color: skyblue;
+        }
+        
+        .wrap .item .change .num {
+            width: 40px;
+            height: 25px;
+        }
+        
+        .wrap .item .remove {
+            position: absolute;
+            right: 4px;
+            top: 0;
+            width: 40px;
+            font-size: 40px;
+            text-align: center;
+            color: red;
+        }
+        
+        .wrap .item .remove:hover {
+            background-color: #f40;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <my-cart></my-cart>
+    </div>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script>
+        // 定义三个组件
+        let CartTitle = {
+            props: ['username'],
+            template: `
+                <div class='title'>{{username}}的购物车</div>
+            `
+        }
+
+        let CartList = {
+            props: ['list'],
+            template: `
+                <div>
+                    <div class='item' :key="item.id" v-for="item in list">
+                        <img />
+                        <div class="name">{{item.name}}</div>
+                        <div class="change">
+                            <a href='' @click.prevent="sub(item.id)">-</a>
+                            <input type="text" class="num" v-model="item.num" @blur="changeNum(item.id,$event)">
+                            <a href='' @click.prevent="add(item.id)">+</a>
+                        </div>
+                        <div class="remove" @click="del(item.id)">✖️</div>    
+                    </div>
+                </div>
+            `,
+            methods: {
+                sub(id) {
+                    this.$emit('change-num', {
+                        id,
+                        flag: 'sub'
+                    });
+                },
+                add(id) {
+                    this.$emit('change-num', {
+                        id,
+                        flag: 'add'
+                    });
+                },
+                changeNum(id, event) {
+                    this.$emit('change-num', {
+                        id,
+                        flag: 'change',
+                        num: event.target.value
+                    });
+                },
+                del(id) {
+                    this.$emit('cart-del', id);
+                }
+            }
+        }
+
+        let CartTotal = {
+            props: ['list'],
+            computed: {
+                getTotal() {
+                    let sum = 0;
+                    this.list.forEach(item => {
+                        sum += item.price * item.num;
+                    });
+                    return sum;
+                }
+            },
+            template: `
+                <div class='total'>
+                    <span>总价{{getTotal}}</span>
+                    <button>结算</button>
+                </div>
+            `
+        }
+
+
+
+        // 定义购物车组件
+        Vue.component('my-cart', {
+            data() {
+                return {
+                    username: 'zs',
+                    list: [{
+                        id: 1,
+                        name: 'DELL笔记本',
+                        price: 4000,
+                        num: 1
+                    }, {
+                        id: 2,
+                        name: '机械键盘',
+                        price: 200,
+                        num: 1
+                    }, {
+                        id: 3,
+                        name: '华为手机',
+                        price: 5000,
+                        num: 1
+                    }, {
+                        id: 4,
+                        name: '特斯拉模型车',
+                        price: 1000,
+                        num: 2
+                    }]
+                }
+            },
+            template: `
+                <div class="wrap">
+                    <cart-title :username="username"></cart-title>
+                    <cart-list :list="list" @change-num="changeNum" @cart-del="delCart"></cart-list>
+                    <cart-total :list="list"></cart-total>
+                </div>
+            `,
+            components: {
+                'cart-title': CartTitle,
+                'cart-total': CartTotal,
+                'cart-list': CartList
+            },
+            methods: {
+                delCart(id) {
+                    // 拿到子组件想要删除的商品id
+                    let idx = this.list.findIndex(item => {
+                        return item.id === id;
+                    });
+                    this.list.splice(idx, 1);
+                },
+                changeNum(obj) {
+                    //console.log(obj.flag);
+                    if (obj.flag === 'sub') {
+                        this.list.some(item => {
+                            if (item.id === obj.id) {
+                                item.num--;
+                                return true;
+                            }
+                        });
+                    } else if (obj.flag === 'add') {
+                        this.list.some(item => {
+                            if (item.id === obj.id) {
+                                item.num++;
+                                return true;
+                            }
+                        });
+                    } else if (obj.flag === 'change') {
+                        this.list.some(item => {
+                            if (item.id === obj.id) {
+                                item.num = obj.num;
+                                return true;
+                            }
+                        });
+                    }
+                }
+            }
+        })
+        new Vue({
+            el: '#app'
+        })
+    </script>
+</body>
+
+</html>

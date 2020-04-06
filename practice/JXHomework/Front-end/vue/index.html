@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            height: 54px;
+            background-color: skyblue;
+            line-height: 54px;
+            text-align: center;
+            font-size: 26px;
+            color: gray;
+            position: absolute;
+            top: 0 ;
+            width: 100%;
+        }
+
+        main {
+            display: flex;
+            width: 100%;
+            position: absolute;
+            top: 54px;
+        }
+
+        .right {
+            flex: 1;
+            text-align: center;
+            height: 100%;
+        }
+
+        .left{
+            background-color: greenyellow;
+            flex: 0 0 20%;
+            text-align: center;
+        }
+
+        .left li {
+            height: 45px;
+            line-height: 45px;
+            border-bottom: 1px solid white;
+        }
+
+        .left a{
+            text-decoration: none;
+            text-align: center;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        footer {
+            height: 42px;
+            line-height: 42px;
+            text-align: center;
+            color: red;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            background-color: rosybrown;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="../node_modules/vue-router/dist/vue-router.js"></script>
+    <script>
+        const Users = {
+            template:`
+                <div>
+                    <h2>用户管理区域</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>用户编号</th>
+                                <th>用户姓名</th>
+                                <th>用户年龄</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr :key="user.id" v-for="user in userlist">
+                                <td>{{user.id}}</td>
+                                <td>{{user.name}}</td>
+                                <td>{{user.age}}</td>
+                                <td><a href="javascript:;" @click.prevent="goDetail(user.id)">查看详情</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `,
+            data(){
+                return {
+                    userlist: [
+                        {
+                            id : 1,
+                            name: 'zs',
+                            age: 20
+                        },
+                        {
+                            id : 2,
+                            name: 'lisi',
+                            age: 22
+                        },
+                        {
+                            id : 3,
+                            name: 'wangwu',
+                            age: 45
+                        },
+                    ]
+                }
+            },
+            methods: {
+                goDetail(id){
+                    this.$router.push(`/userinfo/${id}`);
+                }
+            }
+        }
+
+        const Rights = {
+            template:`
+                <h3>权限管理区</h3>
+            `
+        }
+
+        const UserDetail = {
+            props: ['id'],
+            template:`
+                <div>
+                    <p>用户id是{{id}}</p>
+                </div>
+            `
+        }
+
+        const Goods = {
+            template:`
+                <h3>权限管理区</h3>
+            `
+        }
+
+        const Orders = {
+            template:`
+                <h3>权限管理区</h3>
+            `
+        }
+
+        // 定义根组件
+        const App = {
+            template: `
+                <div>
+                    <header>xx后台管理系统</header>
+                    <main>
+                        <div class="nav left">
+                            <ul>
+                                <li>
+                                    <router-link to="/users">用户</router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/goods">货物</router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/rights">权限</router-link>
+                                </li>
+                                <li>
+                                    <router-link to="/orders">订单</router-link>
+                                </li>
+                            </ul>                       
+                        </div>
+                        <div class="content right">
+                            <router-view></router-view>
+                        </div>
+                    </main>
+                    1111
+                    <footer>尾部</footer>
+                </div>
+            `
+        }
+
+        const router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    component: App,
+                    redirect: '/users',
+                    children : [
+                        {
+                            path: '/users',
+                            component: Users
+                        },
+                        {
+                            path: '/rights',
+                            component: Rights
+                        },
+                        {
+                            path: '/userinfo/:id',
+                            component: UserDetail,
+                            props: true,
+                        },
+                        {
+                            path: '/goods',
+                            component: Goods
+                        },
+                        {
+                            path: '/orders',
+                            component: Orders
+                        },
+                    ]
+                }
+            ]
+        });
+
+        const vm = new Vue({
+            el : '#app',
+            router
+        });
+    </script>
+</body>
+</html>
