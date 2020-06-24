@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<beans>
+    <bean name="baseDao" class="com.chengsanban.dao.impl.BaseDaoImpl"></bean>
+    <bean name="baseService" class="com.chengsanban.service.impl.BaseServiceImpl">
+        <opt name="dao" ref="baseDao"></opt>
+        <!--name是代码中service里面base所起变量名称，ref是这里bean定义的名称-->
+    </bean>
+    <bean name="baseController" class="com.chengsanban.controller.BaseController">
+        <opt name="service" ref="baseService"></opt>
+    </bean>
+</beans>
